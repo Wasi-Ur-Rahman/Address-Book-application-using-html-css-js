@@ -1,0 +1,109 @@
+.logo-name{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 20px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  body{
+    font-size: 14px;
+    background: #2596be;
+  }
+  .container{
+    background: #fff;
+    width: 900px;
+    padding: 10px;
+    margin-top: 10px;
+    border-top: 4px solid #2596be;
+    box-shadow: 0 0 5px 10px rgba(0,0,0,0.5);
+    overflow-y: auto;
+  }
+  .name-info{
+    width: 90%;
+    margin-top: 20px auto 0;
+  }
+  .phone-no{
+    width: 90%;
+    margin-top: 8px;
+  }
+  .email-id{
+    width: 90%;
+    margin-top: 8px;
+  }
+  .address-info{
+    width: 90%;
+    margin-top: 8px;
+  }
+  .add-contact{
+    margin-top: 8px;
+  }
+  .generate-list{
+    background: white;
+    margin: 20px auto 0;
+    width: 700px;
+    padding: 25px;
+  }
+  .address-table{
+    margin-top: 2rem;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  .address-table thead{
+    border-bottom: 1px solid white;
+  }
+  .address-table thead tr th{
+    padding-bottom: 0.8 rem;
+  }
+  .address-table tbody td{
+    padding: 1.5 rem 0;
+    color: rgba(0,0,0,0.6);
+    font-weight: 600;
+  }
+  .address-table tbody td:nth-child(1) {
+    padding-left: 0.5 rem;
+    padding-right: 1 rem;
+  }
+  .search-table{
+    margin-top: 2rem;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  .search-table tbody td{
+    padding: 1.5 rem 0;
+    color: rgba(0,0,0,0.6);
+    font-weight: 600;
+  }
+  .search-table tbody td:nth-child(1) {
+    padding-left: 0.5 rem;
+    padding-right: 1 rem;
+  }
+  .quick-form{
+    background: white;
+    margin: 20px auto 0;
+    width: 500px;
+    padding: 25px;
+    margin-top: 10px;
+    border-top: 4px solid #2596be;
+  }
+  .search-section{
+    margin: 20px auto 0;
+    width: 500px;
+    padding: 25px;
+    margin-top: -5px;
+  }
+  .found-items{
+    background: white;
+    margin: 20px auto 0;
+    width: 700px;
+  }
+  button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+  }
