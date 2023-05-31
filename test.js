@@ -1,12 +1,15 @@
-window.onload = function() {
+$(document).ready(function() {
   var addressbook = [];
-  var addBookDiv = document.querySelector('.generate-list');
-  var addBtn = document.getElementById("add-button");
+  var addBookDiv = $('.generate-list');
+  var addSearchDiv = $('.found-items');
+  var addBtn = $('#add-button');
+  var searchBtn = $('#search-btn');
 
-  // localStorage['generate-list'] = '[{"firstname":"Wasi","lastname":"Ur Rahman","phone":"01647566933","email":"wasiurrahaman247@gmail.com","address":"omda mia hill"}]';
-  addBtn.addEventListener("click", addToBook);
-  addBookDiv.addEventListener("click",removeEntry);
-  function jsonStructure(firstname,lastname,phone,email,address){
+  addBtn.on("click", addToBook);
+  searchBtn.on("click",findContact);
+  addBookDiv.on("click", ".delButton", removeEntry);
+
+  function jsonStructure(firstname, lastname, phone, email, address) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.phone = phone;
@@ -14,46 +17,91 @@ window.onload = function() {
     this.address = address;
   }
 
-  function clearForm() {
-    var formFields = document.querySelectorAll('.form');
-      for(var i in formFields){
-        formFields[i].value = '';
+  function findContact() {
+    var inputElem = $('#search-bar');
+    var str = inputElem.val();
+
+    var fname = "",lname = "";
+    if (str.length != 0) {
+      var i = 0;
+      while (i < str.length && str[i] != ' ') {
+        fname += str[i++];
       }
+      while (i < str.length) {
+        lname += str[i++];
+      }
+      fname.toLowerCase();
+      lname.toLowerCase();
+      i = 0;
+      addSearchDiv.html('');
+      if (addressbook.length == 0) {
+        addSearchDiv.append('<p>No contact found</p>');
+      }else {
+        while (i < addressbook.length) {
+          var a = addressbook[i].firstname.toLowerCase();
+          var b = addressbook[i].lastname.toLowerCase();
+  
+          if (fname.length > 0 && a.includes(fname) || lname.length > 0 && a.includes(lname) || fname.length > 0 &&  b.includes(fname) || lname.length > 0 && b.includes(lname)) {
+            var s = '<div class="generate-search-list">';
+            s += '<table class="search-table">';
+            s += '<tr>';
+            s += '<td>';
+            s += '<span class="full-name">' + addressbook[i].firstname + " " + addressbook[i].lastname + '</span>';
+            s += '</td>';
+            s += '<td>';
+            s += '<span>' + addressbook[i].address + '</span>';
+            s += '</td>'
+            s += '<td>' + addressbook[i].email + '</td>';
+            s += '<td>' + addressbook[i].phone + '</td>';
+            s += '</tr>';
+            s += '</table>'
+            s += '</div>';
+            addSearchDiv.append(s);
+          }else {
+            addSearchDiv.append('<p>No contact found</p>');
+          }
+          i++;
+        }
+      }
+    }
+  }
+
+  function clearForm() {
+    $('.form').val('');
   }
 
   function addToBook() {
-    var firstname = document.getElementById("first-name");
-    var lastname = document.getElementById("last-name");
-    var phone = document.getElementById("phone");
-    var email = document.getElementById("email");
-    var address = document.getElementById("address");
-    
+    var firstname = $("#first-name");
+    var lastname = $("#last-name");
+    var phone = $("#phone");
+    var email = $("#email");
+    var address = $("#address");
 
-    var isNull = firstname.value!='' && lastname.value!='' && phone.value!='' && email.value!='' && address.value!='';
+    var isNull = firstname.val() != '' && lastname.val() != '' && phone.val() != '' && email.val() != '' && address.val() != '';
 
     if (isNull) {
-      var obj = new jsonStructure(firstname.value,lastname.value,phone.value,email.value,address.value);
+      var obj = new jsonStructure(firstname.val(), lastname.val(), phone.val(), email.val(), address.val());
       addressbook.push(obj);
       localStorage['generate-list'] = JSON.stringify(addressbook);
       clearForm();
       showAddressBook();
     }
   }
-  function removeEntry(e){
-		if(e.target.classList.contains('delButton')){
-			var remID = e.target.getAttribute('data-id');
-			addressbook.splice(remID,1);
-			localStorage['generate-list'] = JSON.stringify(addressbook);
-			showAddressBook();
-		}
-	}
+
+
+  function removeEntry() {
+    var remID = $(this).data('id');
+    addressbook.splice(remID, 1);
+    localStorage['generate-list'] = JSON.stringify(addressbook);
+    showAddressBook();
+  }
 
   function showAddressBook() {
     if (localStorage['generate-list'] === undefined) {
       localStorage['generate-list'] = '';
-    }else {
+    } else {
       addressbook = JSON.parse(localStorage['generate-list']);
-      addBookDiv.innerHTML = '';
+      addBookDiv.html('');
       for (var n in addressbook) {
         var str = '<div class="entry">';
         str += '<table class="address-table">';
@@ -80,10 +128,9 @@ window.onload = function() {
         str += '</tbody>';
         str += '</table>'
         str += '</div>';
-        //console.log(str);
-        addBookDiv.innerHTML += str;
+        addBookDiv.append(str);
       }
     }
   }
   showAddressBook();
-}
+});
