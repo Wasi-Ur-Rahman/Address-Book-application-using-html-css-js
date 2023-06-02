@@ -37,6 +37,7 @@ $(document).ready(function() {
       if (addressbook.length == 0) {
         addSearchDiv.append('<p>No contact found</p>');
       }else {
+        var pos = 0;
         while (i < addressbook.length) {
           var a = addressbook[i].firstname.toLowerCase();
           var b = addressbook[i].lastname.toLowerCase();
@@ -57,10 +58,12 @@ $(document).ready(function() {
             s += '</table>'
             s += '</div>';
             addSearchDiv.append(s);
-          }else {
-            addSearchDiv.append('<p>No contact found</p>');
+            pos = 1;
           }
           i++;
+        }
+        if (pos == 0) {
+          addSearchDiv.append('<p>No contact found</p>');
         }
       }
     }
@@ -110,7 +113,7 @@ $(document).ready(function() {
         str += '<th>Name</th>';
         str += '<th>Address</th>';
         str += '<th>Email</th>';
-        str += '<th>Phone no</th>'
+        str += '<th>Phone no</th>';
         str += '</tr>';
         str += '</thead>';
         str += '<tbody>';
@@ -120,7 +123,7 @@ $(document).ready(function() {
         str += '</td>';
         str += '<td>';
         str += '<span>' + addressbook[n].address + '</span>';
-        str += '</td>'
+        str += '</td>';
         str += '<td>' + addressbook[n].email + '</td>';
         str += '<td>' + addressbook[n].phone + '</td>';
         str += '<td><span><button class="delButton" data-id="' + n + '">Delete</button></span></td>';
